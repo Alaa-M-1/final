@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webcam Feed</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .container div {
+            width: 48%; /* Adjust as needed */
+            box-sizing: border-box;
+        }
+        img {
+            width: 100%; /* Make images responsive */
+            height: auto;
+        }
+        form {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Webcam Feed</h1>
+    <div class="container">
+        <div>
+            <h2>Live Webcam Feed</h2>
+            <img src="{{ url_for('video_feed') }}" alt="Live Webcam Feed"/>
+        </div>
+        <div>
+            <h2>Face Detection Feed</h2>
+            <img src="{{ url_for('detection_feed') }}" alt="Face Detection Feed"/>
+        </div>
+    </div>
+    
+    <form id="continueForm">
+        <button type="submit">Continue</button>
+    </form>
+    
+    <script>
+        document.getElementById('continueForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+            
+            fetch('{{ url_for("continue_detection") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Optionally handle the response data
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
