@@ -1,5 +1,4 @@
 Flask==2.2.5
 opencv-python
-dlib_binary-19.24.1-cp310-cp310-manylinux1_x86_64.whl
-face_recognition-1.3.0-py2.py3-none-any.whl
+face_recognition
 gunicorn
